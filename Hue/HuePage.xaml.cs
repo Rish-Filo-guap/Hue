@@ -74,7 +74,7 @@ namespace Hue
             buttonSwap.Clicked += ButtonSwap_Clicked;
 
             CButton buttonTip = new CButton("Подсказка");
-
+            buttonTip.Clicked += ButtonTip_Clicked;
 
             CButton buttonNew = new CButton("Новая");
             buttonNew.Clicked += ButtonNew_Clicked;
@@ -96,6 +96,10 @@ namespace Hue
             void ButtonSwap_Clicked(object sender, EventArgs e)
             {
                 field.SwapColors();
+            }
+            void ButtonTip_Clicked(object sender, EventArgs e)
+            {
+                field.GetTip();
             }
         }
 

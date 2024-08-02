@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Dynamic;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -155,7 +155,9 @@ namespace Hue
                     ChangeButtons();
                     
                     nButtons[first.x][first.y].BorderWidth = 0;
-                   
+                    nButtons[second.x][second.y].BorderWidth = 0;
+                    nButtons[first.x][first.y].Text = "";
+                    nButtons[second.x][second.y].Text = "";
 
                 }
                 else
@@ -223,6 +225,45 @@ namespace Hue
                 }
                 await Task.Delay(100);
             }
+        }
+        public void GetTip() {
+            bool isfir=false;
+            bool issec=false;
+            Pnt fir=new Pnt(0,0);
+            Pnt sec= new Pnt(0, 0);
+
+            for (int i = 0; i < columns; i++) {
+                if (isfir) break;
+                else
+                    for (int j = 0; j < rows; j++) {
+                        if (originalField[i][j]  != swappedField[i][j]) {
+                            fir = new Pnt(i, j);
+                            isfir = true;
+                            break;
+                        }
+                    }
+            }
+
+            for (int i = 0; i < columns; i++)
+            {
+                if (issec) break;
+                else
+                    for (int j = 0; j < rows; j++)
+                    {
+                        if (swappedField[i][j] == originalField[fir.x][fir.y])
+                        {
+                            sec = new Pnt(i, j);
+                            issec = true;
+                            break;
+                        }
+                    }
+            }
+            if (isfir && issec) { 
+                nButtons[fir.x][fir.y].Text = "◯";
+                nButtons[sec.x][sec.y].Text = "◯";
+            
+            }
+            
         }
         private void GenGrad(Pnt lu, Pnt ru, Pnt ld, Pnt rd)
         {
