@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.Xaml;
 
 namespace Hue
@@ -11,6 +12,7 @@ namespace Hue
             InitializeComponent();
 
             MainPage = new TabbedMainPage();
+            
         }
 
         protected override void OnStart()

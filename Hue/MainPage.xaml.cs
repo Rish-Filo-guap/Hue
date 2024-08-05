@@ -19,8 +19,11 @@ namespace Hue
             Children.Add (new HuePage(9, 9));
             Children.Add (new HuePage(6, 6));
             Children.Add (new HuePage(4, 4));
-            Children.Add (new HuePage(5, 10));
+            Children.Add (new HuePage(7, 12));
+            Children.Add (new HuePage(10, 10));
             Children.Add (new HuePage(12, 12));
+            
+            BarBackgroundColor = Color.Black;
         }
     }
 }

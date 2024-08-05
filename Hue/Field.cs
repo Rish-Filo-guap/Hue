@@ -51,11 +51,7 @@ namespace Hue
             nButtons[columns - 1][0].Text = "●"; 
             nButtons[0][rows - 1].Text = "●"; 
             nButtons[columns - 1][rows - 1].Text = "●";
-            //int fntsz = 50;
-            //nButtons[0][0].FontSize=  (fntsz/columns*rows)* (fntsz / columns * rows);
-            //nButtons[columns - 1][0].FontSize = (fntsz / columns * rows) * (fntsz / columns * rows);
-            //nButtons[0][rows - 1].FontSize = (fntsz / columns * rows) * (fntsz / columns * rows);
-            //nButtons[columns - 1][rows - 1].FontSize = (fntsz / columns * rows) * (fntsz / columns * rows);
+            
 
 
             GenField();
@@ -63,10 +59,14 @@ namespace Hue
         }
         public void GenField() {
             Random rnd = new Random();
-            double sat = 1;
+            double sat = 0.8;
+            sat = 0.8+(double)(rows*columns)/1000;
+
+
+
             isFirstSelected = false;
             
-            double hslide=15;
+            double hslide=17;
             double rndColor = rnd.Next(0, 100);
             int x=9; int y=9;
             int[] xys = new int[5]{ 9, 17, 33, 65, 129 };
@@ -178,9 +178,9 @@ namespace Hue
 
             nButtons[second.x][second.y].BackgroundColor = color;
             swappedField[second.x][second.y] = color;
-            IsWin();
+            if (IsWin()) FieldWinAnim(second);
         }
-        private void IsWin() {
+        public bool IsWin() {
             countswapped = 0;
             for (int i = 0; i < columns; i++) { 
                 for (int j = 0; j < rows; j++)
@@ -192,13 +192,14 @@ namespace Hue
                 }
             
             }
-           // nButtons[1][1].Text=countswapped.ToString();
+            // nButtons[1][1].Text=countswapped.ToString();
             if (countswapped == 0)
             {
-                FieldWinAnim(second);
-                
+                return true;
             }
+            else return false;
         }
+        
         private async void WinAnim(Pnt coords) {
             if (coords.x >= 0 && coords.x < columns && coords.y >= 0 && coords.y < rows) { 
             await Task.Delay(100);

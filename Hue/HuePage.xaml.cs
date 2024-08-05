@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace Hue
             InitializeComponent();
             Title = Ccount.ToString()+ "x" + Rcount.ToString();
             StackLayout stackLayout = new StackLayout() {
-                BackgroundColor = Color.White,
+                BackgroundColor = Color.Black,
 
             };
             
@@ -30,6 +31,7 @@ namespace Hue
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 ColumnSpacing = 0,
                 RowSpacing = 0,
+                BackgroundColor = Color.White,
                 
             };
             for (int i = 0; i < Ccount; i++) {
@@ -79,6 +81,8 @@ namespace Hue
             CButton buttonNew = new CButton("Новая");
             buttonNew.Clicked += ButtonNew_Clicked;
             
+
+
             buttonsGrid.Children.Add(buttonSwap, 0, 0);
             buttonsGrid.Children.Add(buttonTip, 1, 0);
             buttonsGrid.Children.Add(buttonNew, 2, 0);
@@ -88,10 +92,20 @@ namespace Hue
             Content = stackLayout;
 
 
-            void ButtonNew_Clicked(object sender, EventArgs e)
+            async void ButtonNew_Clicked(object sender, EventArgs e)
             {
-                field.GenField();
-                field.FillButtonsColor();
+                if (!field.IsWin()) {
+                    bool result = await DisplayAlert("Подтвердить действие", "Создать новый?", "Да", "Нет");
+                    if (result) {
+                        field.GenField();
+                        field.FillButtonsColor();
+                    }
+                }
+                else
+                {
+                    field.GenField();
+                    field.FillButtonsColor();
+                }
             }
             void ButtonSwap_Clicked(object sender, EventArgs e)
             {
@@ -101,6 +115,7 @@ namespace Hue
             {
                 field.GetTip();
             }
+            
         }
 
     }
